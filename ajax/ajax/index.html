@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+    <script>
+        function Listar(){
+            var dados = $('#form1').serialize();
+
+        $.ajax({
+            type: "POST",
+            url: "arquivo.php",
+            data: dados,
+            dataType: 'json',
+
+            success: function(meu_json){
+                var valores = meu_json;
+                var lista = valores.empregados;
+
+                for (x=0;x<lista.length;x++){
+                    console.log(lista[x].nome);
+                    console.log(lista[x].idade);
+                    console.log(lista[x].sexo);
+                    console.log(" ");
+                    
+                }
+            },
+            error: function(xhr, status, error){
+                console.error("ocorreu um erro ao enviar os dados" + error);
+
+            },
+            beforeSend: function(){
+
+            },
+            complete: function(){
+
+            },
+            timeout: 5000
+        });
+    }
+    </script>
+</head>
+<body>
+    <form action="" method="post" id="form1">
+
+        Nome: <input type="text" name="nome" value=""/>
+        Idade: <input type="text" name="idade" value=""/>
+        Sexo: <input type="text" name="sexo" value=""/>
+
+        <input type="button" id="enviar" value="Enviar" onclick="Listar();"/>
+
+    </form>
+    
+</body>
+</html>
